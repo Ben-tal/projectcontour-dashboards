@@ -1272,7 +1272,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_cluster_upstream_rq_total{namespace=~\"$namespace\",service=~\"$service\"}[1m])) by (service,namespace)",
+          "expr": "sum(rate(envoy_cluster_upstream_rq_total{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval])) by (service,namespace)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{namespace}}/{{service}}",
@@ -1521,7 +1521,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_cluster_upstream_cx_total{namespace=~\"$namespace\",service=~\"$service\"}[1m])) by (namespace, service)",
+          "expr": "sum(rate(envoy_cluster_upstream_cx_total{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval])) by (namespace, service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}}",
@@ -1826,7 +1826,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_cx_total{namespace=~\"$namespace\",service=~\"$service\"}[1m]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (ingress_service, ingress_namespace)",
+          "expr": "sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_cx_total{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (ingress_service, ingress_namespace)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1841,7 +1841,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_rq_total{namespace=~\"$namespace\",service=~\"$service\"}[1m]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (ingress_service, ingress_namespace)",
+          "expr": "sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_rq_total{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (ingress_service, ingress_namespace)",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1856,7 +1856,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "histogram_quantile(0.5, sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_rq_time_bucket{namespace=~\"$namespace\",service=~\"$service\"}[1m]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (le, ingress_namespace, ingress_service))",
+          "expr": "histogram_quantile(0.5, sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_rq_time_bucket{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (le, ingress_namespace, ingress_service))",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1871,7 +1871,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "histogram_quantile(0.90, sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_rq_time_bucket{namespace=~\"$namespace\",service=~\"$service\"}[1m]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (le, ingress_namespace, ingress_service))",
+          "expr": "histogram_quantile(0.90, sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_rq_time_bucket{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (le, ingress_namespace, ingress_service))",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1886,7 +1886,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "histogram_quantile(0.99, sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_rq_time_bucket{namespace=~\"$namespace\",service=~\"$service\"}[1m]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (le, ingress_namespace, ingress_service))",
+          "expr": "histogram_quantile(0.99, sum(label_replace(label_replace(label_replace(rate(envoy_cluster_upstream_rq_time_bucket{namespace=~\"$namespace\",service=~\"$service\"}[$__rate_interval]), \"ingress_namespace\", \"$1\", \"envoy_cluster_name\", \"^([a-z0-9\\\\-]+)_.*\"), \"ingress_service\", \"$1\", \"envoy_cluster_name\", \"^[a-z0-9\\\\-]+_([a-z0-9\\\\-]+)_\\\\d+$\"), \"ingress_port\", \"$1\", \"envoy_cluster_name\", \".*_(\\\\d+)$\")) by (le, ingress_namespace, ingress_service))",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -2025,7 +2025,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"1\"}[1m])) by (namespace,service)",
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"1\"}[$__rate_interval])) by (namespace,service)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{namespace}}/{{service}} - 1xx",
@@ -2037,7 +2037,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"2\"}[1m])) by (namespace,service)",
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"2\"}[$__rate_interval])) by (namespace,service)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -2050,7 +2050,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"3\"}[1m])) by (namespace,service)",
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"3\"}[$__rate_interval])) by (namespace,service)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -2063,7 +2063,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"4\"}[1m])) by (namespace,service)",
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"4\"}[$__rate_interval])) by (namespace,service)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -2076,7 +2076,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"5\"}[1m])) by (namespace,service)",
+          "expr": "sum(rate(envoy_cluster_upstream_rq_xx{namespace=~\"$namespace\",service=~\"$service\", envoy_response_code_class=~\"5\"}[$__rate_interval])) by (namespace,service)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -2180,7 +2180,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(irate(envoy_cluster_upstream_cx_rx_bytes_total{service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (service, namespace)",
+          "expr": "sum(irate(envoy_cluster_upstream_cx_rx_bytes_total{service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (service, namespace)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}} - In",
@@ -2193,7 +2193,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "-sum(irate(envoy_cluster_upstream_cx_tx_bytes_total{service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (service, namespace)",
+          "expr": "-sum(irate(envoy_cluster_upstream_cx_tx_bytes_total{service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (service, namespace)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}} - Out",
@@ -2675,7 +2675,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_http_downstream_rq_total{service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (service, namespace)",
+          "expr": "sum(rate(envoy_http_downstream_rq_total{service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (service, namespace)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{namespace}}/{{service}}",
@@ -2902,7 +2902,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_http_downstream_cx_total{service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (service, namespace)",
+          "expr": "sum(rate(envoy_http_downstream_cx_total{service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (service, namespace)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}}",
@@ -3131,7 +3131,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
+          "expr": "sum(irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (namespace, service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}} - In",
@@ -3144,7 +3144,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "-sum(irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
+          "expr": "-sum(irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (namespace, service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}} - Out",
