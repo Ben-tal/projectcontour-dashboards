@@ -2666,7 +2666,7 @@
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(envoy_cluster_update_time{envoy_cluster_name=~\"${namespace}_[a-z0-9\\\\-]+_\\\\d+\"},envoy_cluster_name)",
+        "definition": "label_values(envoy_cluster_update_time{namespace=\"${contour_namespace}\", envoy_cluster_name=~\"${namespace}_[a-z0-9\\\\-]+_\\\\d+\"},envoy_cluster_name)",
         "description": "",
         "includeAll": true,
         "label": "Service",
@@ -2675,7 +2675,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(envoy_cluster_update_time{envoy_cluster_name=~\"${namespace}_[a-z0-9\\\\-]+_\\\\d+\"},envoy_cluster_name)",
+          "query": "label_values(envoy_cluster_update_time{namespace=\"${contour_namespace}\", envoy_cluster_name=~\"${namespace}_[a-z0-9\\\\-]+_\\\\d+\"},envoy_cluster_name)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 2,
