@@ -1772,7 +1772,7 @@
                   {
                     "targetBlank": true,
                     "title": "Drill down",
-                    "url": "./d/b1b27299-bed8-4982-ab03-f0c79ccef5fc?${__url_time_range}&var-namespace=${__data.fields[\"Ingress Namespace\"]}&var-service=${__data.fields[\"Ingress Service\"]}"
+                    "url": "./d/b1b27299-bed8-4982-ab03-f0c79ccef5fc?${__url_time_range}&var-datasource=${datasource:percentencode}&var-contour_namespace=${namespace:percentencode}&var-namespace=${__data.fields[\"Ingress Namespace\"]}&var-service=${__data.fields[\"Ingress Service\"]}"
                   }
                 ]
               },
@@ -1793,7 +1793,7 @@
                 "value": [
                   {
                     "title": "Drill Down",
-                    "url": "./d/b1b27299-bed8-4982-ab03-f0c79ccef5fc?${__url_time_range}&var-namespace=${__data.fields[\"Ingress Namespace\"]}&var-service=All"
+                    "url": "./d/b1b27299-bed8-4982-ab03-f0c79ccef5fc?${__url_time_range}&var-datasource=${datasource:percentencode}&var-contour_namespace=${namespace:percentencode}&var-namespace=${__data.fields[\"Ingress Namespace\"]}&var-service=All"
                   }
                 ]
               }
