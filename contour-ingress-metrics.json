@@ -2590,7 +2590,7 @@
     "list": [
       {
         "current": {
-          "text": "Developers",
+          "text": "yesodot-devs",
           "value": "yesodot-devs"
         },
         "includeAll": false,

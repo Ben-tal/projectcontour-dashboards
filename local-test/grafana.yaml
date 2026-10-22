@@ -1,0 +1,180 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-provisioning
+  namespace: contour-test
+data:
+  datasource.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: yesodot-devs
+        uid: yesodot-devs
+        type: prometheus
+        access: proxy
+        url: http://prometheus.contour-test.svc:9090
+        isDefault: true
+        editable: false
+  dashboards.yaml: |
+    apiVersion: 1
+    providers:
+      - name: Project Contour
+        orgId: 1
+        folder: Project Contour
+        type: file
+        disableDeletion: true
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/project-contour
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: contour-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      initContainers:
+        - name: install-prometheus-plugin
+          image: grafana/grafana:13.2-slim
+          command:
+            - sh
+            - -c
+            - grafana cli --pluginsDir /var/lib/grafana/plugins plugins install prometheus
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: plugins
+              mountPath: /var/lib/grafana/plugins
+      containers:
+        - name: grafana
+          image: grafana/grafana:13.2-slim
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              value: admin
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: contour-test
+            - name: GF_ANALYTICS_REPORTING_ENABLED
+              value: "false"
+            - name: GF_ANALYTICS_CHECK_FOR_UPDATES
+              value: "false"
+            - name: GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES
+              value: "false"
+            - name: GF_PLUGINS_PREINSTALL_DISABLED
+              value: "true"
+          ports:
+            - name: web
+              containerPort: 3000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 1Gi
+            limits:
+              memory: 4Gi
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: web
+            periodSeconds: 5
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: web
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: web
+          volumeMounts:
+            - name: provisioning
+              mountPath: /etc/grafana/provisioning/datasources/datasource.yaml
+              subPath: datasource.yaml
+              readOnly: true
+            - name: provisioning
+              mountPath: /etc/grafana/provisioning/dashboards/dashboards.yaml
+              subPath: dashboards.yaml
+              readOnly: true
+            - name: pr-provisioning
+              mountPath: /etc/grafana/provisioning/dashboards/prs.yaml
+              subPath: prs.yaml
+              readOnly: true
+            - name: dashboards
+              mountPath: /var/lib/grafana/dashboards/project-contour
+              readOnly: true
+            - name: pr-8-dashboards
+              mountPath: /var/lib/grafana/dashboards/pr-8
+              readOnly: true
+            - name: pr-9-dashboards
+              mountPath: /var/lib/grafana/dashboards/pr-9
+              readOnly: true
+            - name: pr-10-dashboards
+              mountPath: /var/lib/grafana/dashboards/pr-10
+              readOnly: true
+            - name: pr-11-dashboards
+              mountPath: /var/lib/grafana/dashboards/pr-11
+              readOnly: true
+            - name: pr-12-dashboards
+              mountPath: /var/lib/grafana/dashboards/pr-12
+              readOnly: true
+            - name: pr-13-dashboards
+              mountPath: /var/lib/grafana/dashboards/pr-13
+              readOnly: true
+            - name: pr-14-dashboards
+              mountPath: /var/lib/grafana/dashboards/pr-14
+              readOnly: true
+            - name: plugins
+              mountPath: /var/lib/grafana/plugins
+      volumes:
+        - name: provisioning
+          configMap:
+            name: grafana-provisioning
+        - name: pr-provisioning
+          configMap:
+            name: grafana-pr-dashboard-provisioning
+        - name: dashboards
+          configMap:
+            name: grafana-dashboards
+        - name: pr-8-dashboards
+          configMap:
+            name: grafana-pr-8-dashboards
+        - name: pr-9-dashboards
+          configMap:
+            name: grafana-pr-9-dashboards
+        - name: pr-10-dashboards
+          configMap:
+            name: grafana-pr-10-dashboards
+        - name: pr-11-dashboards
+          configMap:
+            name: grafana-pr-11-dashboards
+        - name: pr-12-dashboards
+          configMap:
+            name: grafana-pr-12-dashboards
+        - name: pr-13-dashboards
+          configMap:
+            name: grafana-pr-13-dashboards
+        - name: pr-14-dashboards
+          configMap:
+            name: grafana-pr-14-dashboards
+        - name: plugins
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: contour-test
+spec:
+  selector:
+    app: grafana
+  ports:
+    - name: web
+      port: 3000
+      targetPort: web

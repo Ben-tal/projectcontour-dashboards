@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-sample
+  namespace: contour-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-sample
+  template:
+    metadata:
+      labels:
+        app: dashboard-sample
+    spec:
+      containers:
+        - name: web
+          image: hashicorp/http-echo:1.0.0
+          args:
+            - -text=Project Contour dashboard test
+          ports:
+            - name: http
+              containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard-sample
+  namespace: contour-test
+spec:
+  selector:
+    app: dashboard-sample
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: dashboard-sample
+  namespace: contour-test
+spec:
+  virtualhost:
+    fqdn: dashboards.local
+  routes:
+    - conditions:
+        - prefix: /failure
+      services:
+        - name: dashboard-failure
+          port: 80
+    - services:
+        - name: dashboard-sample
+          port: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-failure
+  namespace: contour-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-failure
+  template:
+    metadata:
+      labels:
+        app: dashboard-failure
+    spec:
+      containers:
+        - name: web
+          image: hashicorp/http-echo:1.0.0
+          args:
+            - -text=Project Contour dashboard sample failure
+            - -status-code=503
+          ports:
+            - name: http
+              containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dashboard-failure
+  namespace: contour-test
+spec:
+  selector:
+    app: dashboard-failure
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dashboard-traffic
+  namespace: contour-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard-traffic
+  template:
+    metadata:
+      labels:
+        app: dashboard-traffic
+    spec:
+      containers:
+        - name: traffic
+          image: busybox:1.37
+          command: ["sh", "-c"]
+          args:
+            - |
+              while true; do
+                wget -q -T 2 -O /dev/null --header='Host: dashboards.local' \
+                  http://envoy.projectcontour.svc.cluster.local/ || true
+                wget -q -T 2 -O /dev/null --header='Host: dashboards.local' \
+                  http://envoy.projectcontour.svc.cluster.local/failure || true
+                sleep 2
+              done
+          resources:
+            requests:
+              cpu: 5m
+              memory: 8Mi
+            limits:
+              memory: 24Mi
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: dashboard-invalid-proxy
+  namespace: contour-test
+spec:
+  virtualhost:
+    fqdn: invalid-dashboards.local
+  routes:
+    - services:
+        - name: missing-dashboard-backend
+          port: 80

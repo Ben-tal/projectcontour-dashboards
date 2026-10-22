@@ -52,3 +52,7 @@ The [contour-global-metrics](./contour-global-metrics.json) monitors general and
 - Memory Usage
 - Node Status
 - HTTPProxy Resource Status
+
+## Test locally in Kubernetes
+
+See [local-test](./local-test/README.md) for a lightweight Minikube setup that provisions Prometheus, Grafana, and both dashboards without cloud services.

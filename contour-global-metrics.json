@@ -1,14 +1,6 @@
 {
   "__inputs": [
     {
-      "name": "DS_DEVELOPERS",
-      "label": "Developers",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    },
-    {
       "name": "VAR_SERVICE",
       "type": "constant",
       "label": "Service",
@@ -92,7 +84,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -152,7 +144,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -171,7 +163,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -232,7 +224,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -252,7 +244,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -312,7 +304,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -380,7 +372,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -511,7 +503,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(increase(envoy_runtime_update_attempt{namespace=~\"$namespace\",service=~\"$service\"}[1m]))",
@@ -553,7 +545,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -640,7 +632,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -659,7 +651,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -778,7 +770,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -841,7 +833,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "This is the total number of requests made in this period (top-right period selected)",
       "fieldConfig": {
@@ -903,7 +895,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -922,7 +914,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "The number of HTTP requests made in the last five minute window",
       "fieldConfig": {
@@ -985,7 +977,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1005,7 +997,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "This is the total number of connections made in this period (top-right period selected)",
       "fieldConfig": {
@@ -1067,7 +1059,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1087,7 +1079,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "This is the number of new connections made to the ingress in the five minutes.",
       "fieldConfig": {
@@ -1149,7 +1141,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -2099,7 +2091,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2185,7 +2177,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "sum(irate(envoy_cluster_upstream_cx_rx_bytes_total{service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (service, namespace)",
@@ -2198,7 +2190,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "expr": "-sum(irate(envoy_cluster_upstream_cx_tx_bytes_total{service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (service, namespace)",
@@ -2241,7 +2233,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "This is the total number of requests made in this period (top-right period selected)",
       "fieldConfig": {
@@ -2303,7 +2295,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -2322,7 +2314,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "The number of HTTP requests made in the last five minute window",
       "fieldConfig": {
@@ -2385,7 +2377,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -2405,7 +2397,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "This is the total number of connections made in this period (top-right period selected)",
       "fieldConfig": {
@@ -2467,7 +2459,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -2487,7 +2479,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "This is the number of new connections made to the ingress in the five minutes.",
       "fieldConfig": {
@@ -2549,7 +2541,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -3049,7 +3041,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_DEVELOPERS}"
+        "uid": "${datasource}"
       },
       "description": "",
       "fieldConfig": {
@@ -3136,10 +3128,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_https\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
+          "expr": "sum(irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}} - In",
@@ -3149,10 +3141,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_DEVELOPERS}"
+            "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "-sum(irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_https\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
+          "expr": "-sum(irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}} - Out",
@@ -3171,9 +3163,8 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "yesodot-devs",
+          "value": "yesodot-devs"
         },
         "hide": 0,
         "includeAll": false,
