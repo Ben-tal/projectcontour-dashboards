@@ -2590,8 +2590,8 @@
     "list": [
       {
         "current": {
-          "text": "Developers",
-          "value": "yesodot-devs"
+          "text": "default",
+          "value": "default"
         },
         "includeAll": false,
         "label": "Datasource",
