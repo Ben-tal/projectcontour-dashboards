@@ -1,14 +1,6 @@
 {
   "__inputs": [
     {
-      "name": "DS_DEVELOPERS",
-      "label": "Developers",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    },
-    {
       "name": "VAR_SERVICE",
       "type": "constant",
       "label": "Service",
@@ -3172,8 +3164,8 @@
       {
         "current": {
           "selected": false,
-          "text": "${DS_DEVELOPERS}",
-          "value": "${DS_DEVELOPERS}"
+          "text": "default",
+          "value": "default"
         },
         "hide": 0,
         "includeAll": false,
