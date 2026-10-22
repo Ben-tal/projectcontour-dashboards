@@ -38,6 +38,23 @@ The [contour-ingress-metrics](./contour-ingress-metrics.json) Grafana dashboard 
 - **New Connections**: Rate of new connections being established.
 - **Ingress Connection Volume**: Volume of connections over time.
 
+## Success-rate policy
+
+The period, five-minute, and per-ingress success percentages use this dashboard policy:
+
+```text
+success rate = rate of responses outside 4xx/5xx
+               / rate of all responses except 404
+```
+
+Rates are summed across the selected service ports before division, so the result is weighted by request volume. The per-ingress chart performs the same aggregation separately for each namespace/service pair. The period statistic uses the selected dashboard range; the five-minute statistic and per-ingress chart use the preceding five minutes.
+
+For example, **90 successful responses, 10 non-404 failures, and 100 responses with status 404 yield 90 / (90 + 10) = 90%**, rather than 90 / 200 = 45%. Eligible traffic containing only failures produces 0%. When no eligible traffic exists, the ratio is undefined (`NaN`) or absent; it does not indicate a successful service. Missing telemetry can also produce no data.
+
+The HTTP status-count and failure-rate panels still include 404 responses. Their totals therefore differ from the success-rate denominator. The **HTTP 1/2xx (5m)** count also excludes 3xx, whereas the success-rate numerator includes 3xx. Dividing that count by all requests will not reproduce the displayed percentage.
+
+Excluding 404 is the dashboard's chosen policy. Applications may classify 404 as a failure differently; this dashboard does not imply that every 404 is harmless.
+
 # [Contour Global Metrics](https://grafana.com/grafana/dashboards/21402-contour-global-metrics/)
 A Dashboard that monitors general statistics for Contour Ingress Controller (Projectcontour)
 
