@@ -2227,7 +2227,7 @@
           "refId": "A"
         }
       ],
-      "title": "DownStream",
+      "title": "Downstream ingress (HTTP + HTTPS)",
       "type": "row"
     },
     {
@@ -2235,7 +2235,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the total number of requests made in this period (top-right period selected)",
+      "description": "This is the total number of requests made in this period (top-right period selected)\n\nIncludes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2299,7 +2299,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(increase(envoy_http_downstream_rq_total{namespace=~\"$namespace\",service=~\"$service\"}[${__range_s}s])) by (namespace, service)",
+          "expr": "sum(increase(envoy_http_downstream_rq_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", namespace=~\"$namespace\",service=~\"$service\"}[${__range_s}s])) by (namespace, service)",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -2316,7 +2316,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The number of HTTP requests made in the last five minute window",
+      "description": "The number of HTTP requests made in the last five minute window\n\nIncludes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2381,7 +2381,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(increase(envoy_http_downstream_rq_total{namespace=~\"$namespace\",service=~\"$service\"}[5m])) by (namespace, service)",
+          "expr": "sum(increase(envoy_http_downstream_rq_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", namespace=~\"$namespace\",service=~\"$service\"}[5m])) by (namespace, service)",
           "format": "time_series",
           "instant": true,
           "interval": "15s",
@@ -2399,7 +2399,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the total number of connections made in this period (top-right period selected)",
+      "description": "This is the total number of connections made in this period (top-right period selected)\n\nIncludes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2463,7 +2463,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(increase(envoy_http_downstream_cx_total{namespace=~\"$namespace\",service=~\"$service\"}[${__range_s}s])) by (namespace, service)",
+          "expr": "sum(increase(envoy_http_downstream_cx_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", namespace=~\"$namespace\",service=~\"$service\"}[${__range_s}s])) by (namespace, service)",
           "format": "time_series",
           "instant": true,
           "interval": "15s",
@@ -2481,7 +2481,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of new connections made to the ingress in the five minutes.",
+      "description": "This is the number of new connections made to the ingress in the five minutes.\n\nIncludes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2545,7 +2545,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(increase(envoy_http_downstream_cx_total{namespace=~\"$namespace\",service=~\"$service\"}[5m])) by (namespace, service)",
+          "expr": "sum(increase(envoy_http_downstream_cx_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", namespace=~\"$namespace\",service=~\"$service\"}[5m])) by (namespace, service)",
           "format": "time_series",
           "instant": true,
           "interval": "15s",
@@ -2675,7 +2675,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_http_downstream_rq_total{service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (service, namespace)",
+          "expr": "sum(rate(envoy_http_downstream_rq_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (service, namespace)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{namespace}}/{{service}}",
@@ -2684,7 +2684,8 @@
         }
       ],
       "title": "Downstream RPS",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Includes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope."
     },
     {
       "datasource": {
@@ -2799,7 +2800,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(envoy_http_downstream_rq_active{namespace=~\"$namespace\",service=~\"$service\"}) by (namespace, service)",
+          "expr": "sum(envoy_http_downstream_rq_active{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", namespace=~\"$namespace\",service=~\"$service\"}) by (namespace, service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}}",
@@ -2808,7 +2809,8 @@
         }
       ],
       "title": "Downstream Active Requests",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Includes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope."
     },
     {
       "datasource": {
@@ -2902,7 +2904,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(rate(envoy_http_downstream_cx_total{service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (service, namespace)",
+          "expr": "sum(rate(envoy_http_downstream_cx_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[$__rate_interval])) by (service, namespace)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}}",
@@ -2911,7 +2913,8 @@
         }
       ],
       "title": "Downstream CPS",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Includes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope."
     },
     {
       "datasource": {
@@ -3026,7 +3029,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(envoy_http_downstream_cx_active{service=~\"$service\",namespace=~\"$namespace\"}) by (service, namespace)",
+          "expr": "sum(envoy_http_downstream_cx_active{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}) by (service, namespace)",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -3036,14 +3039,15 @@
         }
       ],
       "title": "Downstream Active Connections",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Includes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope."
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "Includes only the ingress_http and ingress_https HTTP connection managers; excludes management listeners such as admin and stats. Request, connection, and bandwidth panels use the same listener scope.",
       "fieldConfig": {
         "defaults": {
           "color": {
