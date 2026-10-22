@@ -3139,7 +3139,7 @@
             "uid": "${DS_DEVELOPERS}"
           },
           "editorMode": "code",
-          "expr": "sum(irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_https\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
+          "expr": "sum(irate(envoy_http_downstream_cx_rx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}} - In",
@@ -3152,7 +3152,7 @@
             "uid": "${DS_DEVELOPERS}"
           },
           "editorMode": "code",
-          "expr": "-sum(irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_https\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
+          "expr": "-sum(irate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=~\"ingress_(http|https)\", service=~\"$service\",namespace=~\"$namespace\"}[1m])) by (namespace, service)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{namespace}}/{{service}} - Out",
