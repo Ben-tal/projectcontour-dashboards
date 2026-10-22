@@ -38,7 +38,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the total number of requests made in this period (top-right period selected)",
+      "description": "Estimated number of upstream requests during the selected dashboard time range, calculated from the request counter increase.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -120,7 +120,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the total number of connections made in this period (top-right period selected)",
+      "description": "Estimated number of newly established upstream TCP connections during the selected dashboard time range. This is a counter increase, not the number of currently active connections.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -299,7 +299,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of successful requests in the last five minutes.  Successful being 1xx or 2xx by the standard HTTP definition.",
+      "description": "Estimated number of HTTP 1xx and 2xx responses during the preceding five minutes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -381,7 +381,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of 5xx requests in the last five minutes.",
+      "description": "Estimated number of HTTP 5xx responses during the preceding five minutes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -463,7 +463,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The number of HTTP requests made in the last five minute window",
+      "description": "Estimated number of upstream requests during the preceding five minutes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -538,7 +538,7 @@
           "refId": "A"
         }
       ],
-      "title": "Reqs (5m)",
+      "title": "Requests (5m)",
       "type": "stat"
     },
     {
@@ -546,7 +546,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of new connections made to the ingress in the last five minutes.",
+      "description": "Estimated number of newly established upstream TCP connections during the preceding five minutes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -621,7 +621,7 @@
           "refId": "A"
         }
       ],
-      "title": "Conns (5m)",
+      "title": "Connections (5m)",
       "type": "stat"
     },
     {
@@ -726,7 +726,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of 3xx requests in the last five minutes.",
+      "description": "Estimated number of HTTP 3xx responses during the preceding five minutes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -808,7 +808,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of 4xx requests in the last five minutes.",
+      "description": "Estimated number of HTTP 4xx responses during the preceding five minutes, including 404.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -983,7 +983,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "Requests per second with response codes outside the 4xx and 5xx classes, grouped by ingress and response code.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1116,7 +1116,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "NOTE: Showing 404s in this metric",
+      "description": "Requests per second with 4xx or 5xx response codes, including 404, grouped by ingress and response code.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1693,7 +1693,8 @@
           }
         }
       ],
-      "type": "table"
+      "type": "table",
+      "description": "Instant service summary: request throughput in requests per second, newly established upstream TCP connections per second, latency quantiles, and network byte rates. Connection rates do not measure active concurrency; Envoy can reuse pooled connections."
     },
     {
       "collapsed": false,
@@ -1996,14 +1997,15 @@
         }
       ],
       "title": "Total active requests",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Current number of active upstream requests, sampled over time. This gauge measures concurrency rather than requests per second or requests over a window."
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "New upstream requests per second, calculated with rate over the scrape-aware window.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2126,7 +2128,7 @@
           "useBackend": false
         }
       ],
-      "title": "Ingress Request Volume",
+      "title": "Ingress Requests per Second",
       "type": "timeseries"
     },
     {
@@ -2228,8 +2230,9 @@
           "refId": "A"
         }
       ],
-      "title": "New Requests",
-      "type": "timeseries"
+      "title": "New Requests (2m)",
+      "type": "timeseries",
+      "description": "Estimated number of new upstream requests during the preceding two minutes at each point. This is a rolling count from increase, not requests per second."
     },
     {
       "collapsed": false,
@@ -2344,14 +2347,15 @@
         }
       ],
       "title": "Total active connections",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Current number of active upstream connections, sampled over time. This gauge measures concurrency rather than new connection establishments."
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "",
+      "description": "New upstream TCP connections established per second, calculated with rate over the scrape-aware window. Envoy reuses pooled upstream connections, so request traffic can continue while this rate is zero.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2474,7 +2478,7 @@
           "useBackend": false
         }
       ],
-      "title": "Ingress Connection Volume",
+      "title": "Ingress Connections per Second",
       "type": "timeseries"
     },
     {
@@ -2577,8 +2581,9 @@
           "refId": "A"
         }
       ],
-      "title": "New Connections ",
-      "type": "timeseries"
+      "title": "New Connections (2m)",
+      "type": "timeseries",
+      "description": "Estimated number of newly established upstream TCP connections during the preceding two minutes at each point. This is a rolling count from increase, not connections per second."
     }
   ],
   "preload": false,
