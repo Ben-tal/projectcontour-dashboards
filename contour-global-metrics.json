@@ -835,7 +835,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the total number of requests made in this period (top-right period selected)",
+      "description": "Estimated number of requests during the selected dashboard time range, calculated from the cumulative counter increase. This is a windowed count.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -916,7 +916,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The number of HTTP requests made in the last five minute window",
+      "description": "Estimated number of requests during the preceding five minutes, calculated from the cumulative counter increase. This is a windowed count.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -999,7 +999,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the total number of connections made in this period (top-right period selected)",
+      "description": "Estimated number of newly established TCP connections during the selected dashboard time range, calculated from the cumulative counter increase. This is a windowed count.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1081,7 +1081,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of new connections made to the ingress in the five minutes.",
+      "description": "Estimated number of newly established TCP connections during the preceding five minutes, calculated from the cumulative counter increase. This is a windowed count.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1163,7 +1163,7 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Displays the number of Requests per Second being performed against each Upstream.",
+      "description": "Number of upstream requests per second, calculated with rate over the scrape-aware window.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1216,7 +1216,7 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "reqps"
         },
         "overrides": [
           {
@@ -1405,14 +1405,15 @@
         }
       ],
       "title": "Upstream Active Requests",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Current number of active upstream requests, sampled over time. This gauge measures concurrency, not a count over a window or a per-second rate."
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Displays the number of Connections per Second being performed against each Upstream.",
+      "description": "Number of new upstream TCP connections per second, calculated with rate over the scrape-aware window.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1465,7 +1466,7 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "cps"
         },
         "overrides": [
           {
@@ -1651,7 +1652,8 @@
         }
       ],
       "title": "Upstream Active Connections",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Current number of active upstream TCP connections, sampled over time. This gauge measures concurrency, not a count over a window or a per-second rate."
     },
     {
       "datasource": {
@@ -2235,7 +2237,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the total number of requests made in this period (top-right period selected)",
+      "description": "Estimated number of requests during the selected dashboard time range, calculated from the cumulative counter increase. This is a windowed count.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2316,7 +2318,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "The number of HTTP requests made in the last five minute window",
+      "description": "Estimated number of requests during the preceding five minutes, calculated from the cumulative counter increase. This is a windowed count.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2399,7 +2401,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the total number of connections made in this period (top-right period selected)",
+      "description": "Estimated number of newly established TCP connections during the selected dashboard time range, calculated from the cumulative counter increase. This is a windowed count.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2481,7 +2483,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of new connections made to the ingress in the five minutes.",
+      "description": "Estimated number of newly established TCP connections during the preceding five minutes, calculated from the cumulative counter increase. This is a windowed count.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2684,7 +2686,8 @@
         }
       ],
       "title": "Downstream RPS",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Number of downstream requests per second, calculated with rate over the scrape-aware window."
     },
     {
       "datasource": {
@@ -2808,7 +2811,8 @@
         }
       ],
       "title": "Downstream Active Requests",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Current number of active downstream requests, sampled over time. This gauge measures concurrency, not a count over a window or a per-second rate."
     },
     {
       "datasource": {
@@ -2911,7 +2915,8 @@
         }
       ],
       "title": "Downstream CPS",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Number of new downstream TCP connections per second, calculated with rate over the scrape-aware window."
     },
     {
       "datasource": {
@@ -3036,7 +3041,8 @@
         }
       ],
       "title": "Downstream Active Connections",
-      "type": "timeseries"
+      "type": "timeseries",
+      "description": "Current number of active downstream connections, sampled over time. This gauge measures concurrency, not a count over a window or a per-second rate."
     },
     {
       "datasource": {
