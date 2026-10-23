@@ -191,7 +191,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "decimals": 0
         },
         "overrides": []
       },
@@ -206,12 +207,12 @@
       "maxDataPoints": 100,
       "options": {
         "colorMode": "none",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -230,16 +231,17 @@
           "exemplar": false,
           "expr": "sum(envoy_server_live{namespace=~\"$namespace\",service=~\"$service\"})",
           "format": "time_series",
-          "instant": false,
+          "instant": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
       "title": "Live servers",
-      "type": "stat"
+      "type": "stat",
+      "description": "Current number of live Envoy servers matching the selected scrape namespace and service. Evaluated as an instant query, independent of the dashboard time range. Missing telemetry remains No data rather than being converted to zero."
     },
     {
       "datasource": {
