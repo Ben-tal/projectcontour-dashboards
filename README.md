@@ -52,3 +52,7 @@ The [contour-global-metrics](./contour-global-metrics.json) monitors general and
 - Memory Usage
 - Node Status
 - HTTPProxy Resource Status
+
+## Downstream listener scope
+
+The global dashboard's downstream request and connection counts, rates, active gauges, and network traffic include only `ingress_http` and `ingress_https`. Management connection managers such as `admin` and `stats` are excluded. Upstream panels continue to measure backend cluster traffic.
