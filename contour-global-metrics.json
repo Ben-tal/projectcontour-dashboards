@@ -476,7 +476,7 @@
               }
             ]
           },
-          "unit": "Reloads"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -506,7 +506,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(increase(envoy_runtime_update_attempt{namespace=~\"$namespace\",service=~\"$service\"}[1m]))",
+          "expr": "sum(increase(envoy_runtime_update_attempt{namespace=~\"$namespace\",service=~\"$service\"}[5m]))",
           "instant": false,
           "legendFormat": "Config Attempt",
           "range": true,
@@ -518,7 +518,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(increase(envoy_runtime_update_failure{namespace=~\"$namespace\",service=~\"$service\"}[1m])) + sum(increase(envoy_runtime_update_rejected{namespace=~\"$namespace\",service=~\"$service\"}[1m]))",
+          "expr": "sum(increase(envoy_runtime_update_failure{namespace=~\"$namespace\",service=~\"$service\"}[5m])) + sum(increase(envoy_runtime_update_rejected{namespace=~\"$namespace\",service=~\"$service\"}[5m]))",
           "hide": false,
           "instant": false,
           "legendFormat": "Config Failed/Rejected",
@@ -531,7 +531,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(increase(envoy_runtime_update_success{namespace=~\"$namespace\",service=~\"$service\"}[1m]))",
+          "expr": "sum(increase(envoy_runtime_update_success{namespace=~\"$namespace\",service=~\"$service\"}[5m]))",
           "hide": false,
           "instant": false,
           "legendFormat": "Config Success",
@@ -539,8 +539,9 @@
           "refId": "C"
         }
       ],
-      "title": "Reload Runtime Update Success ",
-      "type": "timeseries"
+      "title": "Runtime updates (5m)",
+      "type": "timeseries",
+      "description": "Estimated runtime configuration update attempts, failures/rejections, and successes during the preceding five minutes at each point. These are counts over a fixed 5m window, not per-second rates. The window provides multiple samples at a 60s scrape interval, including a delayed scrape; at least two samples per counter are required. Prometheus extrapolation may produce fractional counts."
     },
     {
       "datasource": {
