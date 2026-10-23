@@ -202,7 +202,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the percentage of successful requests over the entire period in the top-right hand corner.\n\nNOTE: Ignoring 404s in this metric, since a 404 is a normal response for errant/invalid request. ",
+      "description": "Dashboard success policy over the selected dashboard time range: successful response rate (codes outside 4xx/5xx) divided by eligible response rate (all codes except 404). Rates are summed across selected service ports before division, weighting by request volume. Eligible traffic containing only failures reports 0%; no eligible traffic leaves the ratio undefined or absent. 404 remains included in the 4xx count and failure-rate panels. Excluding 404 is a dashboard policy, not a universal classification of application errors. Example: 90 successes, 10 non-404 failures, and 100 responses with status 404 produce 90 / (90 + 10) = 90%.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -629,7 +629,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the percentage of successful requests over the last five minutes.\n\nNOTE: Ignoring 404s,  in this metric, since a  404 is a normal response for errant requests",
+      "description": "Dashboard success policy over the preceding five minutes: successful response rate (codes outside 4xx/5xx) divided by eligible response rate (all codes except 404). Rates are summed across selected service ports before division, weighting by request volume. Eligible traffic containing only failures reports 0%; no eligible traffic leaves the ratio undefined or absent. 404 remains included in the 4xx count and failure-rate panels. Excluding 404 is a dashboard policy, not a universal classification of application errors. Example: 90 successes, 10 non-404 failures, and 100 responses with status 404 produce 90 / (90 + 10) = 90%.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -808,7 +808,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "This is the number of 4xx requests in the last five minutes.",
+      "description": "Estimated number of HTTP 4xx responses in the preceding five minutes, including 404. The success-percentage panels exclude 404 from their denominator, so this count uses a different population.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1116,7 +1116,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "NOTE: Showing 404s in this metric",
+      "description": "Requests per second with 4xx or 5xx status codes, including 404. The success-percentage panels exclude 404 from their denominator.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1249,7 +1249,7 @@
         "type": "prometheus",
         "uid": "${datasource}"
       },
-      "description": "NOTE: Not including 404s in this metric, since a  404 is a normal response for errant requests",
+      "description": "Dashboard success policy over the preceding five minutes, separately for each ingress: successful response rate (codes outside 4xx/5xx) divided by eligible response rate (all codes except 404). Rates are summed across selected service ports before division, weighting by request volume. Eligible traffic containing only failures reports 0%; no eligible traffic leaves the ratio undefined or absent. 404 remains included in the 4xx count and failure-rate panels. Excluding 404 is a dashboard policy, not a universal classification of application errors. Example: 90 successes, 10 non-404 failures, and 100 responses with status 404 produce 90 / (90 + 10) = 90%.",
       "fieldConfig": {
         "defaults": {
           "color": {
